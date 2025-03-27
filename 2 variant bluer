@@ -1,0 +1,34 @@
+import cv2
+import numpy as np
+
+lower_blue = np.array([130, 130, 130])
+upper_blue = np.array([255, 255, 255])
+
+gussian_koef_neh = 15  # коррект значения для большего размытия
+
+image = cv2.imread("C:/Users/ygv08/Downloads/bridge-1.png")
+cv2.imshow('Original Image', image)
+mask = cv2.inRange(image, lower_blue, upper_blue)
+res = cv2.bitwise_and(image, image, mask=mask)
+cv2.imshow('res', res)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+window_name = 'Image1'
+ksize = (50, 50)
+image1 = cv2.blur(image, ksize, cv2.BORDER_DEFAULT)
+cv2.imshow(window_name, image1)
+mask = cv2.inRange(image1, lower_blue, upper_blue)
+res = cv2.bitwise_and(image1, image1, mask=mask)
+cv2.imshow('res', res)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+# Gaussian Blur
+Gaussian = cv2.GaussianBlur(image, (gussian_koef_neh, gussian_koef_neh), 0)
+cv2.imshow('Gaussian Blurring', Gaussian)
+mask = cv2.inRange(Gaussian, lower_blue, upper_blue)
+res = cv2.bitwise_and(Gaussian, Gaussian, mask=mask)
+cv2.imshow('res', res)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
